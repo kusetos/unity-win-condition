@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd998cc5b9bc7dd32bda870966dfff90, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c1a363e59c32f702877c2f533ce4890, type: 3}
   m_Name: CharacterMoveScript
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMove
-  speed: 5
-  accel: 10
-  airControl: 20
-  decel: 10
+  speed: 10
+  acceleration: 5
+  deceleration: 10
+  airControl: 0.5
+  jumpHeight: 3
+  jumpCooldown: 1
+  gravity: -15
+  groundedGravity: -2

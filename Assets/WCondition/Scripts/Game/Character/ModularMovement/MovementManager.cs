@@ -23,12 +23,12 @@ public class MovementManager : MonoBehaviour
     {
 
         var input_dir = _input.GetDirection;
-
+        _moveScript.Tick(input_dir);
+        
         if (input_dir.magnitude > 0.1f) {
             Quaternion targetRot = Quaternion.LookRotation(input_dir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
         }
-        _moveScript.Update(input_dir);
 
     }
 }

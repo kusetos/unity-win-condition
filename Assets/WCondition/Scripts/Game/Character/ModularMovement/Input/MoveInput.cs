@@ -7,7 +7,7 @@ public class MoveInput : InputScriptable
     {
     }
 
-    public override void Update()
+    public override void Tick()
     {
 
     }
