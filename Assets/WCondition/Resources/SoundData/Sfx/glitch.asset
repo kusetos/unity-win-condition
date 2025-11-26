@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a05ef89d30f2cec028994270f1cb92a0, type: 3}
-  m_Name: NewSound
-  m_EditorClassIdentifier: Assembly-CSharp::SoundSO
-  soundName: 
-  clips: []
-  volume: 1
+  m_Name: glitch
+  m_EditorClassIdentifier: Assembly-CSharp::SoundsSO
+  soundName: glitch
+  clips:
+  - {fileID: 8300000, guid: 01ecf376c0c309400a2faeddf28bb0b4, type: 3}
+  - {fileID: 8300000, guid: 010bdd2db1688275ca30fddd8b2130bc, type: 3}
+  - {fileID: 8300000, guid: 8f66164f13e3a67e3918f82c86ddac11, type: 3}
+  - {fileID: 8300000, guid: f0f236ee44f1e4857888576ec382311a, type: 3}
+  volume: 0.25
   pitch: 1
   pitchVariation: 0.05
   volumeVariation: 0.05

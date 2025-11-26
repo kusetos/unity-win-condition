@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 //using DG.Tweening;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
  
-    public Image characterIcon;
+    public GameObject characterPrefab;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
     public Button button;
@@ -27,6 +28,7 @@ public class DialogueManager : MonoBehaviour
     private Vector2 _originalPosition;
     private bool _isVisible = false;
     //private Tween _currentTween;
+    private GameObject characterPref;
     private void Awake()
     {
         if (Instance == null)
@@ -35,8 +37,14 @@ public class DialogueManager : MonoBehaviour
         lines = new Queue<DialogueLine>();
         button.onClick.AddListener(() => DisplayNextDialogueLine());
     }
+    private void Start()
+    {
+        LevelManager.Instance.onLevelRestart.AddListener(() => DialogueManager.Instance.ForceStopDialogue());
+    }
     public void ForceStopDialogue()
     {
+        Destroy(characterPref);
+
         Debug.Log("Dialogue force-stopped");
 
         StopAllCoroutines();
@@ -44,10 +52,10 @@ public class DialogueManager : MonoBehaviour
         // Clear all remaining dialogue lines
         lines.Clear();
 
-        // Hide UI immediately (skip tween)
-        //_currentTween?.Kill();
-        panel.anchoredPosition = _originalPosition - new Vector2(0, moveDistance);
-        _isVisible = false;
+        // // Hide UI immediately (skip tween)
+        // //_currentTween?.Kill();
+        // panel.anchoredPosition = _originalPosition - new Vector2(0, moveDistance);
+        // _isVisible = false;
 
         // Reset states
         isDialogueActive = false;
@@ -80,7 +88,7 @@ public class DialogueManager : MonoBehaviour
 
         //_currentTween?.Kill();
 
-        panel.anchoredPosition = _originalPosition - new Vector2(0, moveDistance);
+        //panel.anchoredPosition = _originalPosition - new Vector2(0, moveDistance);
         // _currentTween = panel.DOAnchorPos(_originalPosition, duration)
         //     .SetEase(Ease.InOutFlash);
     }
@@ -106,16 +114,19 @@ public class DialogueManager : MonoBehaviour
     public void DisplayNextDialogueLine()
     {
         Debug.Log("Next dialogue Line");
+        Destroy(characterPref);
+
         if (lines.Count == 0)
         {
             Hide();
+            ForceStopDialogue();
             return;
         }
  
         DialogueLine currentLine = lines.Dequeue();
  
-        characterIcon.sprite = currentLine.character.icon;
-        characterName.text = currentLine.character.name;
+        characterPref = Instantiate(currentLine.character.prefab, characterPrefab.transform);
+        characterName.text = currentLine.character.Name;
  
         StopAllCoroutines();
  

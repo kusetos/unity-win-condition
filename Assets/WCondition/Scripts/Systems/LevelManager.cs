@@ -2,15 +2,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.Collections;
+using NUnit.Framework.Constraints;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
+    [SerializeField]
+    private float delayAction;
 
     [Header("Events")]
     public UnityEvent onLevelStart;
     public UnityEvent onLevelRestart;
-    public UnityEvent onLevelComplete;
-    public Text balance; 
+    public UnityEvent onLevelEnd;
+
+    //public Text balance; 
 
     void Awake()
     {
@@ -25,36 +30,47 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-
-
         StartLevel();
     }
 
 
     public void StartLevel()
-    {
+    {   
         onLevelStart?.Invoke();
-
     }
 
-    public void CompleteLevel()
+    public void EndLevel()
     {
-
         Debug.Log("[LevelManager] Level complete!");
-
-        onLevelComplete?.Invoke();
+        onLevelEnd?.Invoke();
     }
 
     public void RestartLevel()
     {
         Debug.Log("[LevelManager] Restarting level...");
-        DialogueManager.Instance.ForceStopDialogue();
         onLevelRestart?.Invoke();
-        //FadePanel.Instance.FadeIn(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
+
+        StartCoroutine(
+            DelayedAction(delayAction,
+            () => 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name))
+        );
+
     }
+    
     public void GoToNextLevel(string nextSceneName)
     {
         Debug.Log($"[LevelManager] Loading next level: {nextSceneName}");
-        SceneManager.LoadScene(nextSceneName);
+        StartCoroutine(
+            DelayedAction(delayAction,
+            () => SceneManager.LoadScene(nextSceneName)));
+    }
+
+    IEnumerator DelayedAction(float seconds, System.Action onComplete = null)
+    {
+        Debug.Log("Action started!");
+        yield return new WaitForSeconds(seconds); // Wait for 3 seconds
+        Debug.Log("Action resumed after " + seconds + " seconds!");
+        onComplete?.Invoke();
     }
 }

@@ -7,7 +7,7 @@ public class SpinningPlatform : MonoBehaviour, IGameAciton
     [Header("Rotation Settings")]
     public Vector3 rotationAmount = new Vector3(0, 90, 0); 
     public float duration = 1.2f;
-    public Ease ease = Ease.OutCubic;
+    public Ease ease = Ease.OutCubic;   
 
     private bool isBusy;
     private Quaternion initialRotation;

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: TestDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogue
+  dialogueLines:
+  - character: {fileID: 11400000, guid: 69ff855f077bd027eabdefde9ca8c2c8, type: 2}
+    line: "Hello My Freind=-012934=1=-5_+_+_?\":>}{||\\\\\\|/~`\n\u041F\u0440\u0438\u0432\u0435\u0442
+      \u0414\u0440\u0443\u0416\u041E\u041E\u043A"
+    soundName: glitch
+  - character: {fileID: 11400000, guid: 1bf589250d66d787ab346a8a84f23cf4, type: 2}
+    line: "Hello My Freind=-012934=1=-5_+_+_?\":>}{||\\\\\\|/~`\n\u041F\u0440\u0438\u0432\u0435\u0442
+      \u0414\u0440\u0443\u0416\u041E\u041E\u043A"
+    soundName: glitch
