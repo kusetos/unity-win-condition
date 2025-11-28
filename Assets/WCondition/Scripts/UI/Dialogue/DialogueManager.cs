@@ -24,13 +24,14 @@ public class DialogueManager : MonoBehaviour
     [Header("Panel Settings")]
     [SerializeField] private RectTransform panel;  
     [SerializeField] private float moveDistance = 800f; // How far it moves down (in pixels)
-    [SerializeField] private float duration = 0.5f;   // Animation duration
+    [SerializeField] private float panelDuration = 0.5f;   // Animation duration
     private Vector2 _originalPosition;
     private bool _isVisible = false;
     //private Tween _currentTween;
     private GameObject characterPref;
     private void Awake()
     {
+        _originalPosition = panel.anchoredPosition;
         if (Instance == null)
             Instance = this;
 
@@ -62,6 +63,7 @@ public class DialogueManager : MonoBehaviour
         // Optionally clear UI text
         characterName.text = "";
         dialogueArea.text = "";
+        Hide();
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -80,9 +82,16 @@ public class DialogueManager : MonoBehaviour
         }
         DisplayNextDialogueLine();
 
+
     }
      public void Show()
     {
+        TweenManager.Instance.MoveUIElement(
+            panel,
+            panel.anchoredPosition,
+            Vector2.zero,
+            panelDuration
+        );
         if (_isVisible) return;
         _isVisible = true;
 
@@ -95,6 +104,12 @@ public class DialogueManager : MonoBehaviour
 
     public void Hide()
     {
+        TweenManager.Instance.MoveUIElement(
+            panel,
+            Vector2.zero,
+            _originalPosition,
+            panelDuration
+        );
         if (!_isVisible) return;
         _isVisible = false;
 

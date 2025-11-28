@@ -38,7 +38,26 @@ public class TweenManager : MonoBehaviour
             .DOFade(0f, fadeDuration)
             .SetUpdate(true);   
     }
+
+        public void MoveUIElement(
+        RectTransform element,
+        Vector2 startPos,
+        Vector2 endPos,
+        float transitionDuration)
+    {
+        KillTween();
+
+        // Ensure starting position is set immediately
+        element.anchoredPosition = startPos;
+
+        currentTween = element
+            .DOAnchorPos(endPos, transitionDuration)
+            .SetEase(Ease.OutCubic)   // can be changed or exposed
+            .SetUpdate(true);
+    }
 }
+
+
 ///
 /// 1. Event system
 /// player -> interact, and start action
